@@ -1,0 +1,38 @@
+!!!
+%html
+  %head
+    %title Food Order
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body.body
+    .navbar.navbar-inverse.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          %ul.nav
+            %li.brand
+              = link_to "Food Order", root_path
+          - if current_user
+            .dropdown.pull-right
+              .dropdown-toggle{:data =>{:toggle => "dropdown"}}
+                = current_user.username
+              %ul.dropdown-menu{:role => "menu", :aria => {:labelledby => "dropdownMenu"}}
+                %li.divider
+                %li
+                  = link_to "Sign out", destroy_user_session_path, :method => :delete
+          - else
+            = yield :new_session
+    .container-fluid
+      - unless notice.nil?
+        .alert.alert-success
+          = notice
+          %a.close{:href => "#", :data => {:dismiss => "alert"}} &times;
+      - unless alert.nil?
+        .alert.alert-error
+          = alert
+          %a.close{:href => "#", :data => {:dismiss => "alert"}} &times;
+      .row-fluid
+        - if current_user
+          = yield
+        - else
+          = yield :new_user

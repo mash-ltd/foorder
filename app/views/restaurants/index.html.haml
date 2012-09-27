@@ -1,0 +1,28 @@
+%h2
+  Restaurants 
+  = link_to 'New Restaurant', new_restaurant_path, :class => "btn btn-mini btn-primary"
+
+%table.table.table-striped
+  %tr
+    %th Name
+    %th Description
+    %th Address
+    %th Min. Charge
+    - if current_user.role == "admin"
+      %th Administrate
+
+  - for restaurant in @restaurants
+    %tr
+      %td
+        = link_to restaurant.name, restaurant
+      %td
+        = restaurant.description
+      %td
+        = restaurant.address
+      %td
+        = restaurant.minimum_charge
+      - if current_user.role == "admin"
+        %td
+          .span2.btn-group
+            = link_to "Edit", edit_restaurant_path(restaurant), :class => "btn btn-mini"
+            = link_to "Destroy", restaurant, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-mini"

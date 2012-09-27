@@ -1,0 +1,9 @@
+- for item in @cart.items
+  %tr
+    %td
+      = item.quantity
+    %td
+      = item.name
+    %td
+      .pull-right
+        = number_to_currency(item.price, unit: "EGP", format: "%n %u")

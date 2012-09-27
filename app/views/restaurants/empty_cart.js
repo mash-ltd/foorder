@@ -1,0 +1,1 @@
+$('.side-cart').replaceWith($('<%= escape_javascript(render partial: 'cart') %>'))

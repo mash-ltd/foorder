@@ -1,0 +1,60 @@
+.span9
+  %h2
+    = @restaurant.name
+    %span.label.label-important.large
+      .icon-phone
+        = @restaurant.phone
+    - if current_user.role == "admin"
+      .btn-group.pull-right
+        %a.btn.btn-primary.dropdown-toggle{:href => "#", :data => {:toggle => "dropdown"}}
+          Manage
+          %span.caret
+        %ul.dropdown-menu
+          %li
+            = link_to "Edit", edit_restaurant_path(@restaurant)
+          %li
+            = link_to "Remove", @restaurant, confirm: 'Are you sure?', method: :delete
+          %li
+            = link_to "Add new item", new_restaurant_item_path(restaurant_id: @restaurant)
+
+  <br/>
+
+  .well
+    %p
+      = @restaurant.description
+    <br/>
+    %p
+      %strong Address:
+      = @restaurant.address
+    
+    %p
+      %strong Minimum Charge:
+      = @restaurant.minimum_charge
+
+  %p
+    - unless @items.empty?
+      %table.table.table-hover
+        %tr
+          %th Name
+          %th Price
+          %th &nbsp
+          - if current_user.role == "admin"
+            %th Administrate
+        - for item in @items
+          %tr
+            %td
+              = item.name
+              <br/>
+              %small
+                = item.description
+            %td
+              = number_to_currency(item.price, unit: "EGP", format: "%n %u")
+            %td
+              = link_to "Add to Cart", add_to_cart_restaurant_item_path(restaurant_id: @restaurant.id, id: item.id), :remote => true, :class => "btn btn-mini"
+            
+            -if current_user.role == "admin"
+              %td
+                .span2.btn-group
+                  = link_to "Edit", edit_restaurant_item_path(:restaurant_id => @restaurant, :id => item.id), :class => "btn btn-mini"
+                  = link_to "Destroy", restaurant_item_path(:restaurant_id => @restaurant, :id => item.id), :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-mini"
+= render 'restaurants/cart'

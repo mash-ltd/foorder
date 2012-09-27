@@ -1,0 +1,34 @@
+.row
+  = form_for @restaurant do |f|
+    - if @restaurant.errors.any?
+      .alert.alert-error.span9
+        %strong
+          = pluralize(@restaurant.errors.count, "error")
+          prohibited saving this restaurant
+        %ul
+          - @restaurant.errors.full_messages.each do |msg|
+            %li
+              = msg
+
+    .span10
+      = f.label :name
+      = f.text_field :name
+    
+    .span10
+      = f.label :description
+      = f.text_area :description, :rows => 6
+    
+    .span10
+      = f.label :address
+      = f.text_area :address, :rows => 6
+
+    .span10
+      = f.label :phone
+      = f.text_field :phone
+    
+    .span10
+      = f.label :minimum_charge
+      = f.text_field :minimum_charge
+    
+    .span10
+      = f.submit "Save", :class => "btn btn-submit"
