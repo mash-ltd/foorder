@@ -34,27 +34,29 @@
   %p
     - unless @items.empty?
       %table.table.table-hover
-        %tr
-          %th Name
-          %th Price
-          %th &nbsp
-          - if current_user.role == "admin"
-            %th Administrate
-        - for item in @items
+        %thead
           %tr
-            %td
-              = item.name
-              <br/>
-              %small
-                = item.description
-            %td
-              = number_to_currency(item.price, unit: "EGP", format: "%n %u")
-            %td
-              = link_to "Add to Cart", add_to_cart_restaurant_item_path(restaurant_id: @restaurant.id, id: item.id), :remote => true, :class => "btn btn-mini"
-            
-            -if current_user.role == "admin"
+            %th Name
+            %th Price
+            %th &nbsp
+            - if current_user.role == "admin"
+              %th Administrate
+        %tbody
+          - for item in @items
+            %tr
               %td
-                .span2.btn-group
-                  = link_to "Edit", edit_restaurant_item_path(:restaurant_id => @restaurant, :id => item.id), :class => "btn btn-mini"
-                  = link_to "Destroy", restaurant_item_path(:restaurant_id => @restaurant, :id => item.id), :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-mini"
+                = item.name
+                <br/>
+                %small
+                  = item.description
+              %td
+                = number_to_currency(item.price, unit: "EGP", format: "%n %u")
+              %td
+                = link_to "Add to Cart", add_to_cart_restaurant_item_path(restaurant_id: @restaurant.id, id: item.id), :remote => true, :class => "btn btn-mini"
+              
+              -if current_user.role == "admin"
+                %td
+                  .span2.btn-group
+                    = link_to "Edit", edit_restaurant_item_path(:restaurant_id => @restaurant, :id => item.id), :class => "btn btn-mini"
+                    = link_to "Destroy", restaurant_item_path(:restaurant_id => @restaurant, :id => item.id), :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-mini"
 = render 'restaurants/cart'

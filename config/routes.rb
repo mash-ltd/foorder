@@ -3,7 +3,7 @@ FoodOrder::Application.routes.draw do
   devise_for :users
 
   #Store index shows a list of restaurants
-  root :to => "restaurants#index"
+  root :to => "orders#index"
 
   #Restaurants Routes
   resources :restaurants do
@@ -13,6 +13,8 @@ FoodOrder::Application.routes.draw do
       end
     end
   end
+
+  resources :orders
 
   match 'empty_cart' => 'restaurants#empty_cart'
 

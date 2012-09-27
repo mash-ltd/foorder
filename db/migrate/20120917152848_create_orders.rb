@@ -3,7 +3,8 @@ class CreateOrders < ActiveRecord::Migration
   	
     create_table :orders do |t|
       t.integer :restaurant_id
-      t.string :order_status
+      t.string :order_status, default: "open"
+      t.integer :user_id, null: false
 
       t.timestamps
     end

@@ -4,6 +4,9 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile ~/.gitignore_global
 
+#Mac File system
+.DS_Store
+
 # Ignore bundler config
 /.bundle
 
@@ -13,3 +16,9 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+#Database
+/config/database.yml
+
+#RVM initializer
+.rvmrc

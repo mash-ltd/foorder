@@ -32,9 +32,10 @@ ActiveRecord::Schema.define(:version => 20120917162449) do
 
   create_table "orders", :force => true do |t|
     t.integer  "restaurant_id"
-    t.string   "order_status"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.string   "order_status",  :default => "open"
+    t.integer  "user_id",                           :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   create_table "restaurants", :force => true do |t|
