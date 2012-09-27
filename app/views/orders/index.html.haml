@@ -1,0 +1,25 @@
+%h3
+  Open Orders
+
+- if @open_orders
+  %table.table.table-hover
+    %thead
+      %tr
+        %th
+          Restaurant
+        %th
+          Order Initiator
+        %th
+          Manage Order
+    %tbody
+      - for order in @open_orders
+        %tr
+          %td
+            = order.restaurant.name
+          %td
+            = order.user.first_name
+
+            =order.user.last_name
+          %td
+            - if current_user == order.user
+              = link_to "Close", root_path , class: "btn btn-mini btn-primary"
