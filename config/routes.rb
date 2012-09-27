@@ -14,7 +14,11 @@ FoodOrder::Application.routes.draw do
     end
   end
 
-  resources :orders
+  resources :orders do
+    member do
+      get 'close_order' => 'orders#close_order'
+    end
+  end
 
   match 'empty_cart' => 'restaurants#empty_cart'
 
