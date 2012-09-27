@@ -1,0 +1,31 @@
+%h3
+  Ordering from
+  = @order.restaurant.name
+  %span.label.label-important.large
+    .icon-phone
+      = @order.restaurant.phone
+  .pull-right
+    - if current_user == @order.user
+      = link_to "Close", close_order_order_path(id: params[:id]) , class: "btn btn-primary"
+<br/>
+<br/>
+.span4.offset1
+  %table.table.table-hover
+    - @order_items.each do |item_id, item_quantity|
+      %tr
+        %td
+          = item_quantity
+        %td
+          = Item.find(item_id).name
+        %td
+          .pull-right
+            = number_to_currency(Item.find(item_id).price * item_quantity, unit: "EGP", format: "%n %u")
+            - @order_total += Item.find(item_id).price * item_quantity
+    %tr.info
+      %td
+        &nbsp;
+      %td
+        &nbsp;
+      %td
+        .pull-right
+          = number_to_currency(@order_total, unit: "EGP", format: "%n %u")
