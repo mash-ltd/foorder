@@ -1,17 +1,17 @@
 %h3
   Open Orders
 
-.span5
-  %table.table.table-hover
-    %thead
-      %tr
-        %th
-          ID
-        %th
-          Restaurant
-        %th
-          Order Initiator
-    - if @open_orders
+- unless @open_orders.empty?
+  .span5
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            ID
+          %th
+            Restaurant
+          %th
+            Order Initiator
       %tbody
         - for order in @open_orders
           %tr
@@ -23,3 +23,7 @@
               = order.user.first_name
 
               =order.user.last_name
+- else
+  .span8offset2
+    %h4
+      There are no open orders right now. In order to open one, go to the restaurant and choose your desired items and press order...

@@ -11,6 +11,8 @@ class OrdersController < ApplicationController
 
 	def close_order
 		@order = Order.find params[:id]
+		@order.update_attribute(:order_status, "closed") unless @order.order_status = "closed"
+    redirect_to @order
 	end
 
 end

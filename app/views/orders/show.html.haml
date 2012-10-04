@@ -4,9 +4,7 @@
   %span.label.label-important.large
     .icon-phone
       = @order.restaurant.phone
-  .pull-right
-    - if current_user == @order.user
-      = link_to "Close", close_order_order_path(id: params[:id]) , class: "btn btn-primary"
+  
 <br/>
 <br/>
 .span4.offset1
@@ -29,3 +27,12 @@
       %td
         .pull-right
           = number_to_currency(@order_total, unit: "EGP", format: "%n %u")
+    %tr
+      %td
+        &nbsp;
+      %td
+        &nbsp;
+      %td
+        .pull-right
+          - if current_user == @order.user && @order.order_status == "open"
+            = link_to "Close", close_order_order_path(id: params[:id]) , class: "btn btn-primary"
