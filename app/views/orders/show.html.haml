@@ -1,24 +1,24 @@
 %h3
   Ordering from
   = @order.restaurant.name
-  %span.label.label-important.large
+  %span.label.label-info.large
     .icon-phone
       = @order.restaurant.phone
   
-<br/>
-<br/>
+%br
+%br
 .span4.offset1
   %table.table.table-hover
-    - @order_items.each do |item_id, item_quantity|
+    - @order_items.each do |item|
       %tr
         %td
-          = item_quantity
+          = item.item_quantity
         %td
-          = Item.find(item_id).name
+          = Item.find(item.item_id).name
         %td
           .pull-right
-            = number_to_currency(Item.find(item_id).price * item_quantity, unit: "EGP", format: "%n %u")
-            - @order_total += Item.find(item_id).price * item_quantity
+            = number_to_currency(Item.find(item.item_id).price * item.item_quantity, unit: "EGP", format: "%n %u")
+            - @order_total += Item.find(item.item_id).price * item.item_quantity
     %tr.info
       %td
         &nbsp;

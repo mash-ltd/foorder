@@ -1,5 +1,5 @@
 - for item in @cart.items
-  %tr
+  %tr{class: "#{item == @current_item ? "current_item" : ""}"}
     %td
       = item.quantity
     %td

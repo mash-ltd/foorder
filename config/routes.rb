@@ -3,23 +3,25 @@ FoodOrder::Application.routes.draw do
   devise_for :users
 
   #Store index shows a list of restaurants
-  root :to => "orders#index"
+  root :to => "restaurants#index"
 
   #Restaurants Routes
   resources :restaurants do
     resources :items do
       member do
         get 'add_to_cart' => 'restaurants#add_to_cart'
+        get 'change_active_state' => 'restaurants#change_active_state'
       end
     end
   end
+  match 'restaurants/:restaurant_id/add_item', to: 'items#create', as: "add_restaurant_item", via: "post"
 
   resources :orders do
     member do
       get 'close_order' => 'orders#close_order'
     end
   end
-
+  match 'add_to_order' => 'restaurants#add_to_order'
   match 'empty_cart' => 'restaurants#empty_cart'
 
   # The priority is based upon order of creation:

@@ -21,5 +21,5 @@
           &nbsp;
         %td
           .pull-right
-            = link_to "Order", root_path, class: "btn btn-mini btn-primary"
+            = link_to "Order", add_to_order_path(restaurant_id: @restaurant.id), class: "btn btn-mini btn-primary"
             = link_to "Empty", empty_cart_path, remote: true, class: "btn btn-mini btn-danger"  

@@ -10,11 +10,19 @@ class CartItem
 		@quantity += 1
 	end
 	
+	def id
+		@product.id
+	end
+
 	def name
 		@product.name
 	end
 
 	def price
 		@product.price * @quantity
+	end
+
+	def restaurant
+		@product.restaurant
 	end
 end

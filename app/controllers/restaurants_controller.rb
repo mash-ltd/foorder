@@ -1,13 +1,17 @@
 class RestaurantsController < ApplicationController
   
+  before_filter :empty_cart, only: :show
+  
   def index
-		@restaurants = Restaurant.find :all, :order => :"name"
+		@restaurants = Restaurant.find :all, order: "name"
 	end
 	
   def show
     @restaurant = Restaurant.find(params[:id])
-    @items = @restaurant.items.order("name")
+    @active_items = @restaurant.items.where(active_state: true).order("name")
     @cart = find_cart
+    @inactive_items = @restaurant.items.where(active_state: false).order("name")
+    @new_item = Item.new
   end
 
   def new
@@ -19,7 +23,7 @@ class RestaurantsController < ApplicationController
     if @restaurant.save
       redirect_to @restaurant
     else
-      render :action => 'new'
+      render action: 'new'
     end
   end
 
@@ -32,14 +36,14 @@ class RestaurantsController < ApplicationController
     if @restaurant.update_attributes(params[:restaurant])
       redirect_to @restaurant, :notice  => "Successfully updated restaurant."
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 
   def destroy
     @restaurant = Restaurant.find(params[:id])
     @restaurant.destroy
-    redirect_to restaurants_url, :notice => "Successfully destroyed restaurant."
+    redirect_to restaurants_url, notice: "Successfully destroyed restaurant."
   end
   
   ##################
@@ -50,29 +54,50 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find params[:restaurant_id]
     item = Item.find params[:id]
     @cart = find_cart
-    @cart.add_product(item)
+    @current_item = @cart.add_product(item)
   end
 
-  #def add_to_order
-    #@restaurant = params[:restaurant_id]
-    #item = Item.find(params[:id])
-    #@order = Order.find_or_create_by_restaurant_id params[:restaurant_id]
-    #@cart.add_item(item)
-  #rescue ActiveRecord::RecordNotFound
-    #logger.error("Attempt to access invalid product #{params[:id]}")
-    #flash[:notice] = "Invalid product"
-    #redirect_to restaurant_path(:id => @restaurant)
-  #end
-  
+  def add_to_order
+    @cart = find_cart
+    if @cart.items.present?
+      @open_order = Order.where order_status: "open", restaurant_id: params[:restaurant_id]
+      if @open_order.empty?
+        @open_order = Order.new user_id: current_user.id, order_status: "open", restaurant_id: params[:restaurant_id]
+        @open_order.save
+      end
+      @open_order = Order.where order_status: "open", restaurant_id: params[:restaurant_id]
+      @cart.items.each do |item|
+        OrderItem.create order_id: @open_order.first.id, item_id: item.id, item_quantity: item.quantity, user_id: current_user.id
+      end
+      redirect_to order_path(@open_order.first)
+    else
+      redirect_to root_path, alert: "Your cart is empty; No items were added"
+    end
+  end
+
   def empty_cart
     session[:cart] = nil
     @cart = find_cart
   end
   
+  def change_active_state
+    if current_user.role == "admin"
+      @restaurant = Restaurant.find params[:restaurant_id]
+      @item = Item.find params[:id]
+      if @item.active_state
+        @item.update_attribute(:active_state, false)
+      else
+        @item.update_attribute(:active_state, true)
+      end
+      redirect_to @restaurant
+    end
+  end
+
   ###################
 	# Private Methods #
 	###################
-	private
+	
+  private
 	
   def find_cart
     session[:cart] ||= Cart.new

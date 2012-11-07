@@ -1,23 +1,20 @@
 class ItemsController < ApplicationController
 
-  def new
-    @item = Item.new
-    @restaurant = Restaurant.find params[:restaurant_id]
-  end
-
   def create
-    @item = Item.new(params[:item])
-    @item.restaurant_id = params[:restaurant_id]
-    if @item.save
-      redirect_to restaurant_path(:id => params[:restaurant_id]), :notice => "Successfully created item."
-    else
-      @restaurant = Restaurant.find params[:restaurant_id]
-      render :action => 'new'
+    @new_item = Item.new(params[:item])
+    @new_item.restaurant_id = params[:restaurant_id]
+    respond_to do |format|
+      if @new_item.save
+        format.html {redirect_to restaurant_path(:id => params[:restaurant_id]), :notice => "Successfully created item." }
+        format.js { render :close_add_item }
+      else
+        format.js
+      end
     end
   end
 
   def edit
-    @item = Item.find(params[:id])
+    @item = Item.find params[:id]
     @restaurant = Restaurant.find params[:restaurant_id]
   end
 
@@ -36,3 +33,4 @@ class ItemsController < ApplicationController
     redirect_to restaurant_path(:id => params[:restaurant_id]), :notice => "Successfully destroyed item."
   end
 end
+

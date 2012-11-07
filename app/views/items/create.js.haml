@@ -1,0 +1,2 @@
+$('.itemErrors').remove()
+$('#addRestaurantItem .modal-body').prepend('#{ escape_javascript render(partial: "errors", locals: {errors: @new_item.errors.full_messages}) }')
