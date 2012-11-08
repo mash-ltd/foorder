@@ -14,11 +14,16 @@
               = link_to "Food Order", root_path, class: 'active'
           - if current_user
             %ul.pull-right.nav{role: 'navigation'}
+              %li
+                = link_to "Open Orders", orders_path
+              %li.divider-vertical
               %li.dropdown
                 %a.dropdown-toggle{href: '#', data: {toggle: 'dropdown'}}
                   = current_user.username
                   %b.caret
                 %ul.dropdown-menu{role: 'menu', :"aria-labelledby" => "user-management"}
+                  %li
+                    = link_to "Profile", '#'
                   %li.divider
                   %li
                     = link_to "Sign out", destroy_user_session_path, :method => :delete

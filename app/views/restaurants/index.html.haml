@@ -13,14 +13,14 @@
   %tbody
     - for restaurant in @restaurants
       %tr
-        %td
+        %td.span6
           = link_to restaurant.name, restaurant
           <br/>
           %small
             = restaurant.description
-        %td
+        %td.span2
           = restaurant.address
-        %td
+        %td.span2
           = restaurant.minimum_charge
         - if current_user.role == "admin"
           %td

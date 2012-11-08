@@ -7,22 +7,21 @@
       %thead
         %tr
           %th
-            ID
-          %th
             Restaurant
           %th
             Order Initiator
+          %th
+            Links
       %tbody
         - for order in @open_orders
           %tr
             %td
-              = link_to order.id, order
-            %td
               = order.restaurant.name
             %td
               = order.user.first_name
-
-              =order.user.last_name
+              = order.user.last_name
+            %td
+              = link_to "View", order
 - else
   .span8offset2
     %h4

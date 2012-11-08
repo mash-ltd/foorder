@@ -7,32 +7,67 @@
   
 %br
 %br
-.span4.offset1
-  %table.table.table-hover
-    - @order_items.each do |item|
+%table.table.table-hover.span6
+  - @order_items.each do |order_item|
+    %tr
+      %td.span1
+        = order_item.item_quantity
+      %td.span4
+        = order_item.item.name
+        %br
+        %small
+          = order_item.item.description
+      %td.span2
+        .pull-right
+          = number_to_currency(order_item.item.price * order_item.item_quantity, unit: "EGP", format: "%n %u")
+  %tr.info
+    %td
+      &nbsp;
+    %td
+      &nbsp;
+    %td
+      .pull-right
+        = number_to_currency(@total_price, unit: "EGP", format: "%n %u")
+  %tr
+    %td
+      &nbsp;
+    %td
+      &nbsp;
+    %td
+      .pull-right
+        - if current_user == @order.user && @order.order_status == "open"
+          = link_to "Close", close_order_order_path(id: params[:id]), :confirm => 'Are you sure you want to close this order? This will prevent others from adding items to it!', class: "btn btn-primary"
+.row
+%h3
+  User orders
+%table.table.table-striped.span6
+  - @user_items.each do |user_item|
+    - if user_item.user.username != @username
       %tr
         %td
-          = item.item_quantity
+          %h4
+            = user_item.user.username
+            - @user_total = 0
         %td
-          = Item.find(item.item_id).name
+        %td
+    %tr
+      %td.span1
+        = user_item.item_quantity
+      %td.span4
+        = user_item.item.name
+      %td.span1
+        .pull-right
+          = number_to_currency(user_item.item.price * user_item.item_quantity, unit: "EGP", format: "%n %u")
+          - @user_total += user_item.item.price * user_item.item_quantity
+    - if user_item.user.username != @username
+      - @username = user_item.user.username
+    - else
+      %tr.info
+        %td
+          &nbsp;
+        %td
+          &nbsp;
         %td
           .pull-right
-            = number_to_currency(Item.find(item.item_id).price * item.item_quantity, unit: "EGP", format: "%n %u")
-            - @order_total += Item.find(item.item_id).price * item.item_quantity
-    %tr.info
-      %td
-        &nbsp;
-      %td
-        &nbsp;
-      %td
-        .pull-right
-          = number_to_currency(@order_total, unit: "EGP", format: "%n %u")
-    %tr
-      %td
-        &nbsp;
-      %td
-        &nbsp;
-      %td
-        .pull-right
-          - if current_user == @order.user && @order.order_status == "open"
-            = link_to "Close", close_order_order_path(id: params[:id]) , class: "btn btn-primary"
+            - @user_total_hash["user#{@username}"] = @user_total
+            = number_to_currency(@user_total_hash["user#{@username}"], unit: "EGP", format: "%n %u")
