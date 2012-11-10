@@ -9,6 +9,8 @@ gem 'haml-rails',	'0.3.4'
 
 gem 'mysql2'
 
+gem 'thin' # Thin server
+
 # Authentication
 gem 'devise'
 # Authorization based on User.role
@@ -21,6 +23,7 @@ group :assets do
   gem 'bootstrap-sass'
   gem 'coffee-rails'
   gem 'font-awesome-sass-rails'
+  gem 'quiet_assets', :group => :development # Remove bootstrap messages from terminal
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
