@@ -1,34 +1,50 @@
-.row
-  = form_for @restaurant do |f|
-    - if @restaurant.errors.any?
-      .alert.alert-error.span9
-        %strong
-          = pluralize(@restaurant.errors.count, "error")
-          prohibited saving this restaurant
-        %ul
-          - @restaurant.errors.full_messages.each do |msg|
-            %li
-              = msg
-
-    .span10
+= form_for @restaurant do |f|
+  - if @restaurant.errors.any?
+    .alert.alert-error.span9
+      %strong
+        = pluralize(@restaurant.errors.count, "error")
+        prohibited saving this restaurant
+      %ul
+        - @restaurant.errors.full_messages.each do |msg|
+          %li
+            = msg
+  .control-group
+    .control-label
       = f.label :name
+    .controls
       = f.text_field :name
-    
-    .span10
+  
+  .control-group
+    .control-label
       = f.label :description
+    .controls
       = f.text_area :description, :rows => 6
-    
-    .span10
+  
+  .control-group
+    .control-label
       = f.label :address
+    .controls
       = f.text_area :address, :rows => 6
 
-    .span10
+  .control-group
+    .control-label
       = f.label :phone
+    .controls
       = f.text_field :phone
-    
-    .span10
+  
+  .control-group
+    .control-label
       = f.label :minimum_charge
+    .controls
       = f.text_field :minimum_charge
-    
-    .span10
-      = f.submit "Save", :class => "btn btn-submit"
+  
+  .control-group
+    .control-label
+      = f.label :manager_id
+    .controls
+      = f.text_field :username, data: {autocomplete_source: users_path}
+  
+  .control-group
+    .controls
+      = link_to "Cancel", :back, :class => "btn"
+      = f.submit "Save", :class => "btn btn-primary"

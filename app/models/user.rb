@@ -13,9 +13,8 @@ class User < ActiveRecord::Base
   attr_accessible :role, :username, :first_name, :last_name
   validates_presence_of :username, :first_name, :last_name
   validates_uniqueness_of :username
-  # attr_accessible :title, :body
-	#
-	# Roles Model options and view drop down menu
+  #
+  # Roles Model options and view drop down menu
 	#
 	# ROLES = %w[user admin]
 	#	<p>

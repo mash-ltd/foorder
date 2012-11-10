@@ -24,6 +24,8 @@ FoodOrder::Application.routes.draw do
   match 'add_to_order' => 'restaurants#add_to_order'
   match 'empty_cart' => 'restaurants#empty_cart'
 
+  resources :users
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
