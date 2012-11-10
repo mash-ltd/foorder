@@ -1,8 +1,10 @@
 == Welcome to foorder
 
-foorder is a group ordering webapp that is aimed to simplify the process of ordering food in organizations or in small workgroups. The main objective for foorder was to eliminate the hassle people go through when group ordering food having to circulate in office/place to take orders person by person manually.
+foorder is a group ordering webapp that is aimed to simplify the process of ordering food in organizations or in small workgroups. The main objective for foorder is to eliminate the hassle people go through when group ordering food, having to circulate the place/office to take orders person by person manually.
 Instead, people will be able to log on to foorder, view open orders or create new ones, then choose their desired items and add them to the order cart.
-Depending on data entered on foorder, a total is displayed within carts both, personal and group, which eliminates the hassle of calculating every orderer's total money due.
+Depending on data entered on foorder, a total is displayed within carts both for the order as a whole and per orderer, which eliminates the hassle of calculating every person's total money due.
 
-foorder was developed internally in mash, ltd. in Egypt by a non-developer so please go easy on him! =) 
+Please note that user totals do not take into consideration taxes/delivery charges (well, at least for now..)
+
+foorder was developed internally in mash, ltd. in Egypt by a non-developer
 http://www.mashsolvents.com
