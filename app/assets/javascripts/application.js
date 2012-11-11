@@ -16,3 +16,12 @@
 //= require_tree .
 // Loads all Bootstrap javascripts
 //= require bootstrap
+
+$(function() {
+	$('[data-provide="typeahead"][data-url]').each(function() {
+	  var self = $(this);
+	  self.data('source', function(query, process) {
+	    $.get(self.data('url'), { query: query }, process);
+	  }
+	});
+});

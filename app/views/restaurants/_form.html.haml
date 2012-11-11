@@ -18,13 +18,13 @@
     .control-label
       = f.label :description
     .controls
-      = f.text_area :description, :rows => 6
+      = f.text_area :description, rows: 6
   
   .control-group
     .control-label
       = f.label :address
     .controls
-      = f.text_area :address, :rows => 6
+      = f.text_area :address, rows: 6
 
   .control-group
     .control-label
@@ -42,7 +42,7 @@
     .control-label
       = f.label :manager_id
     .controls
-      = f.text_field :username, data: {autocomplete_source: users_path}
+      = f.text_field :username, data: { provide: :typeahead, url: users_path }
   
   .control-group
     .controls
