@@ -11,17 +11,16 @@
         = link_to "Edit", edit_restaurant_path(@restaurant), class: "btn btn-small"
         = link_to "Remove", @restaurant, confirm: 'Are you sure?', method: :delete, class: "btn btn-small"
   %br
-  .well
-    %p
-      = @restaurant.description
+  .well.clearfix
+    = @restaurant.description
     %br
-    %p
-      %strong Address:
-      = @restaurant.address
-    
-    %p
-      %strong Minimum Charge:
-      = @restaurant.minimum_charge
+    %br
+    %strong Address:
+    = @restaurant.address
+    %br
+    %strong Minimum Charge:
+    = @restaurant.minimum_charge
+
   - if @active_items.present?
     %p
     %h4 Restaurant items
