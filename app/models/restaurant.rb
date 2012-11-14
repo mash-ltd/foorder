@@ -5,7 +5,10 @@ class Restaurant < ActiveRecord::Base
   belongs_to :manager, class_name: "User", foreign_key: :manager_id  # Assigns the restaurant to a manager
   accepts_nested_attributes_for :items
 
-  attr_accessible :name, :description, :address, :phone, :minimum_charge, :manager_id, :username, :logo
+  attr_accessible :name, :description, :address, :phone, :minimum_charge, :manager_id, :username
+  
+  # Carrierwave restaurant logo fields
+  attr_accessible :logo, :remote_logo_url, :remove_logo
 
   # 
   mount_uploader :logo, LogoUploader

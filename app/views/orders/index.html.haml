@@ -1,8 +1,7 @@
-%h3
-  Open Orders
-
-- unless @open_orders.empty?
-  .span5
+.span12
+  %h3
+    Open Orders
+  - unless @open_orders.empty?
     %table.table.table-hover
       %thead
         %tr
@@ -10,6 +9,8 @@
             Restaurant
           %th
             Order Initiator
+          %th
+            Order opened at
           %th
             Links
       %tbody
@@ -21,8 +22,39 @@
               = order.user.first_name
               = order.user.last_name
             %td
+              = order.created_at.strftime('%e %B %y')
+            %td
               = link_to "View", order
-- else
-  .span8offset2
-    %h4
-      There are no open orders right now. In order to open one, go to the restaurant and choose your desired items and press order...
+  - else
+    %h5
+      There are no open orders right now. In order to open one, go to a restaurant and choose your desired items then press order...
+      %br
+      = link_to "Go to restaurants index", restaurants_path
+%br
+.span12
+  %h3
+    Past orders
+  - unless @closed_orders.empty?
+    .span5
+      %table.table.table-hover
+        %thead
+          %tr
+            %th
+              Restaurant
+            %th
+              Order Initiator
+            %th
+              Links
+        %tbody
+          - @closed_orders.each do |order|
+            %tr
+              %td
+                = order.restaurant.name
+              %td
+                = order.user.first_name
+                = order.user.last_name
+              %td
+                = link_to "View", order
+  - else
+    %h5
+      Currently, no orders have gone through Foorder. Come back later after an order was closed to see orders' history! :)

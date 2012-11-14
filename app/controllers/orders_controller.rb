@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   
   def index
     @open_orders = Order.where order_status: "open"
+    @closed_orders = Order.all conditions: {order_status: "closed"}
   end
 
   def show

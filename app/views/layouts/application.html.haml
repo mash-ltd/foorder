@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title Food Order
+    %title Foorder
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
@@ -11,11 +11,11 @@
         .container-fluid
           %ul.nav
             %li.brand
-              = link_to "Food Order", root_path, class: 'active'
+              = link_to "Foorder", root_path, class: 'active'
           - if current_user
             %ul.pull-right.nav{role: 'navigation'}
               %li
-                = link_to "Open Orders", orders_path
+                = link_to "Orders", orders_path
               %li.divider-vertical
               %li.dropdown
                 %a.dropdown-toggle{href: '#', data: {toggle: 'dropdown'}}

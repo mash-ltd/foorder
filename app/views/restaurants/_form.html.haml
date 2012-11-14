@@ -1,71 +1,75 @@
-= form_for @restaurant, :html => {multipart: true} do |f|
-  - if @restaurant.errors.any?
-    .alert.alert-error.span9
-      %strong
-        = pluralize(@restaurant.errors.count, "error")
-        prohibited saving this restaurant
-      %ul
-        - @restaurant.errors.full_messages.each do |msg|
-          %li
-            = msg
-  .control-group
-    .control-label
-      = f.label :name
-    .controls
-      = f.text_field :name
-  
-  .control-group
-    .control-label
-      = f.label :description
-    .controls
-      = f.text_area :description, rows: 6
-  
-  .control-group
-    .control-label
-      = f.label :address
-    .controls
-      = f.text_area :address, rows: 6
+.form-horizontal
+  %h3
+    - if edit
+      = "Editing #{@restaurant.name}"
+    - else
+      New restaurant
+  = form_for @restaurant, :html => {multipart: true} do |f|
+    - if @restaurant.errors.any?
+      .alert.alert-error.span9
+        %strong
+          = pluralize(@restaurant.errors.count, "error")
+          prohibited saving this restaurant
+        %ul
+          - @restaurant.errors.full_messages.each do |msg|
+            %li
+              = msg
+    .control-group
+      .control-label
+        = f.label :name
+      .controls
+        = f.text_field :name
+    
+    .control-group
+      .control-label
+        = f.label :description
+      .controls
+        = f.text_area :description, rows: 6
+    
+    .control-group
+      .control-label
+        = f.label :address
+      .controls
+        = f.text_area :address, rows: 6
 
-  .control-group
-    .control-label
-      = f.label :phone
-    .controls
-      = f.text_field :phone
-  
-  .control-group
-    .control-label
-      = f.label :minimum_charge
-    .controls
-      = f.text_field :minimum_charge
-  
-  .control-group
-    .control-label
-      = f.label :manager_id
-    .controls
-      = f.text_field :username, data: { provide: :typeahead, url: users_path }
+    .control-group
+      .control-label
+        = f.label :phone
+      .controls
+        = f.text_field :phone
+    
+    .control-group
+      .control-label
+        = f.label :minimum_charge
+      .controls
+        = f.text_field :minimum_charge
+    
+    .control-group
+      .control-label
+        = f.label :manager_id
+      .controls
+        = f.text_field :username, data: { provide: :typeahead, url: users_path }
 
-  .control-group
-    .controls
-      .media
-        .pull-left
-          .media-object
-            = image_tag @restaurant.logo_url(:thumb).to_s if @restaurant.logo
-        .media-body
-          .media-heading
-            %h5 
-              Change it?
-            = f.file_field :logo
+    .control-group
+      .controls
+        .media
+          - if @restaurant.logo_url
+            .pull-left
+              .media-object
+                = image_tag @restaurant.logo_url(:thumb).to_s
+          .media-body
+            .media-heading
+              %h5
+                = edit && @restaurant.logo_url ? "Change this restaurant's logo?" : "Add a restaurant logo?"
+              = f.file_field :logo
+              or &nbsp; &nbsp; &nbsp;
+              = f.text_field :remote_logo_url, class: "input-xlarge", placeholder: "Enter image URL here ..."
+        - if edit && @restaurant.logo_url
+          .checkbox
+            = f.check_box :remove_logo
+            Remove avatar
 
-  / .control-group
-  /   .control-label
-  /     .media
-  /       = link_to current_entity_profile_path do
-  /         = image_tag current_entity.avatar.icon.url
-  /         = current_entity.name
-  /       = f.label :manager_id
-  /   .controls
-  /     = f.text_field :username, data: { provide: :typeahead, url: users_path }
 
-  .form-actions
-    = link_to "Cancel", :back, :class => "btn"
-    = f.submit "Save", :class => "btn btn-primary"
+    .form-actions
+      = link_to "Cancel", :back, :class => "btn"
+      = f.submit "Save", :class => "btn btn-primary"

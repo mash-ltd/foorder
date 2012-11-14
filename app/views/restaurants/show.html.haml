@@ -1,6 +1,6 @@
 .span9
   %h2
-    = image_tag @restaurant.logo_url(:thumb).to_s
+    = image_tag @restaurant.logo_url(:thumb).to_s, class: "img-rounded" if @restaurant.logo_url
     = @restaurant.name
     %span.label.label-info.large
       .icon-phone
