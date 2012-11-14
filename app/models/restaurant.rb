@@ -5,7 +5,10 @@ class Restaurant < ActiveRecord::Base
   belongs_to :manager, class_name: "User", foreign_key: :manager_id  # Assigns the restaurant to a manager
   accepts_nested_attributes_for :items
 
-  attr_accessible :name, :description, :address, :phone, :minimum_charge, :manager_id, :username
+  attr_accessible :name, :description, :address, :phone, :minimum_charge, :manager_id, :username, :logo
+
+  # 
+  mount_uploader :logo, LogoUploader
 
   #Set of validations
   validates_presence_of :address, :phone

@@ -22,3 +22,6 @@
 
 #RVM initializer
 /.rvmrc
+
+# Ignote uploads
+/public/uploads

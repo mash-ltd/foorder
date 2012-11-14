@@ -1,6 +1,6 @@
 %h2
   Restaurants 
-  = link_to 'New Restaurant', new_restaurant_path, :class => "btn btn-mini btn-primary"
+  = link_to 'New Restaurant', new_restaurant_path, class: "btn btn-mini btn-primary"
 
 %table.table.table-hover
   %thead
@@ -14,10 +14,15 @@
     - for restaurant in @restaurants
       %tr
         %td.span6
-          = link_to restaurant.name, restaurant
-          <br/>
-          %small
-            = restaurant.description
+          .media
+            - if restaurant.logo_url
+              %a.pull-left{href: "#"}
+                .media-object
+                  = image_tag restaurant.logo_url(:thumb).to_s
+            .media-body
+              %h4.media-heading
+                = link_to restaurant.name, restaurant
+              = restaurant.description
         %td.span2
           = restaurant.address
         %td.span2
@@ -25,5 +30,5 @@
         - if current_user.role == "admin"
           %td
             .span2.btn-group
-              = link_to "Edit", edit_restaurant_path(restaurant), :class => "btn btn-mini"
-              = link_to "Destroy", restaurant, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-mini"
+              = link_to "Edit", edit_restaurant_path(restaurant), class: "btn btn-mini"
+              = link_to "Destroy", restaurant, :confirm => 'Are you sure?', :method => :delete, class: "btn btn-mini"

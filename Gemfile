@@ -16,6 +16,10 @@ gem 'devise'
 # Authorization based on User.role
 # gem 'cancan'
 
+# Restaurant logo upload and manipulation
+gem 'rmagick'
+gem 'carrierwave'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

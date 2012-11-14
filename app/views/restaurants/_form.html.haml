@@ -1,4 +1,4 @@
-= form_for @restaurant do |f|
+= form_for @restaurant, :html => {multipart: true} do |f|
   - if @restaurant.errors.any?
     .alert.alert-error.span9
       %strong
@@ -43,8 +43,29 @@
       = f.label :manager_id
     .controls
       = f.text_field :username, data: { provide: :typeahead, url: users_path }
-  
+
   .control-group
     .controls
-      = link_to "Cancel", :back, :class => "btn"
-      = f.submit "Save", :class => "btn btn-primary"
+      .media
+        .pull-left
+          .media-object
+            = image_tag @restaurant.logo_url(:thumb).to_s if @restaurant.logo
+        .media-body
+          .media-heading
+            %h5 
+              Change it?
+            = f.file_field :logo
+
+  / .control-group
+  /   .control-label
+  /     .media
+  /       = link_to current_entity_profile_path do
+  /         = image_tag current_entity.avatar.icon.url
+  /         = current_entity.name
+  /       = f.label :manager_id
+  /   .controls
+  /     = f.text_field :username, data: { provide: :typeahead, url: users_path }
+
+  .form-actions
+    = link_to "Cancel", :back, :class => "btn"
+    = f.submit "Save", :class => "btn btn-primary"

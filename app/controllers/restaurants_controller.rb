@@ -34,7 +34,7 @@ class RestaurantsController < ApplicationController
   def update
     @restaurant = Restaurant.find(params[:id])
     if @restaurant.update_attributes(params[:restaurant])
-      redirect_to @restaurant, :notice  => "Successfully updated restaurant."
+      redirect_to @restaurant, :notice  => "Successfully updated #{@restaurant.name}."
     else
       render action: 'edit'
     end

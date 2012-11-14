@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121105164421) do
+ActiveRecord::Schema.define(:version => 20121114001737) do
 
   create_table "items", :force => true do |t|
     t.string   "name"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(:version => 20121105164421) do
     t.integer  "minimum_charge"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.integer  "manager_id"
+    t.string   "logo"
   end
 
   create_table "users", :force => true do |t|
