@@ -17,7 +17,7 @@ gem 'devise'
 # gem 'cancan'
 
 # Restaurant logo upload and manipulation
-gem 'rmagick'
+gem 'mini_magick'
 gem 'carrierwave'
 
 # Gems used only for assets and not required
@@ -50,4 +50,4 @@ gem 'jquery-rails'
 # gem 'capistrano'
 
 # To use debugger
-gem 'debugger'
+# gem 'debugger'
