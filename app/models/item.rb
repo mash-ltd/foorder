@@ -1,10 +1,10 @@
 class Item < ActiveRecord::Base
-  attr_accessible :name, :description, :price
+  attr_accessible :name, :description, :price, :restaurant_id, :active_state
   belongs_to :restaurant
   has_many :order_items
 
   #Set of validations
-  validates_presence_of :name, :price
+  validates_presence_of :name, :price, :restaurant_id
   validates_numericality_of :price
   validate :price_more_than_zero
 

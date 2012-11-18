@@ -4,7 +4,7 @@ class CreateRestaurants < ActiveRecord::Migration
       t.string :name
       t.text :description
       t.text :address
-      t.integer :phone
+      t.string :phone
       t.integer :minimum_charge
       t.timestamps
     end

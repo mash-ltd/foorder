@@ -5,11 +5,6 @@
     %span.label.label-info.large
       .icon-phone
         = @restaurant.phone
-    - if current_user.role == "admin"
-      .btn-group.pull-right
-        = link_to "Add new item", '#addRestaurantItem', :'data-toggle' => 'modal', class: "btn btn-small"
-        = link_to "Edit", edit_restaurant_path(@restaurant), class: "btn btn-small"
-        = link_to "Remove", @restaurant, confirm: 'Are you sure?', method: :delete, class: "btn btn-small"
   %br
   .well.clearfix
     = @restaurant.description
@@ -21,17 +16,15 @@
     %strong Minimum Charge:
     = @restaurant.minimum_charge
 
+  %p
+  %h4 Restaurant items
   - if @active_items.present?
-    %p
-    %h4 Restaurant items
     %table.table.table-hover
       %thead
         %tr
           %th.span5 Name
           %th.span2 Price
           %th.span2 &nbsp
-          - if current_user.role == "admin"
-            %th.span2 Administrate
       %tbody
         - for item in @active_items
           %tr
@@ -44,65 +37,4 @@
               = number_to_currency(item.price, unit: "EGP", format: "%n %u")
             %td
               = link_to "Add to Cart", add_to_cart_restaurant_item_path(restaurant_id: @restaurant.id, id: item.id), :remote => true, :class => "btn btn-mini"
-            
-            -if current_user.role == "admin"
-              %td
-                .span2.btn-group
-                  = link_to "Edit", edit_restaurant_item_path(:restaurant_id => @restaurant, :id => item.id), :class => "btn btn-mini"
-                  = link_to "Change active state", change_active_state_restaurant_item_path(:restaurant_id => @restaurant, :id => item.id), :class => "btn btn-mini"
-                  = link_to "Destroy", restaurant_item_path(:restaurant_id => @restaurant, :id => item.id), :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-mini"
-  - if current_user.role == "admin" && @inactive_items.present?
-    %br
-    %p
-      %h4 Inactive items
-      %table.table.table-hover
-        %thead
-          %tr
-            %th.span5 Name
-            %th.span2 Price
-            %th.span2 &nbsp;
-            %th.span2 Administrate
-        %tbody
-          - for item in @inactive_items
-            %tr
-              %td
-                = item.name
-                <br/>
-                %small
-                  = item.description
-              %td
-                = number_to_currency(item.price, unit: "EGP", format: "%n %u")
-              %td.span2 &nbsp;
-              %td
-                .span2.btn-group
-                  = link_to "Edit", edit_restaurant_item_path(:restaurant_id => @restaurant, :id => item.id), :class => "btn btn-mini"
-                  = link_to "Change active state", change_active_state_restaurant_item_path(:restaurant_id => @restaurant, :id => item.id), :class => "btn btn-mini"
-                  = link_to "Destroy", restaurant_item_path(:restaurant_id => @restaurant, :id => item.id), :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-mini"
 = render 'restaurants/cart'
-
-#addRestaurantItem.modal.fade.hide{tabindex: "-1"}
-  = form_for [@restaurant, @new_item], url: add_restaurant_item_path(restaurant_id: @restaurant), remote: true do |f|
-    .modal-header
-      %a.close{"data-dismiss" => "modal"} &#215;
-      %h3
-        Adding new item in
-        = @restaurant.name
-    .modal-body
-      .form-horizontal
-        .control-group
-          .control-label
-            = f.label :name
-          .controls
-            = f.text_field :name
-          %br
-          .control-label
-            = f.label :description
-          .controls
-            = f.text_area :description, :rows => 6
-          %br
-          .control-label
-            = f.label :price
-          .controls
-            = f.text_field :price
-    .modal-footer
-      = f.submit "Add Item", :class => "btn btn-primary"

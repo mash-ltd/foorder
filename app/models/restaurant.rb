@@ -14,7 +14,7 @@ class Restaurant < ActiveRecord::Base
   mount_uploader :logo, LogoUploader
 
   #Set of validations
-  validates_presence_of :address, :phone
+  validates_presence_of :name, :address, :phone
   validates_uniqueness_of :name, :phone
   validates_numericality_of :minimum_charge
 

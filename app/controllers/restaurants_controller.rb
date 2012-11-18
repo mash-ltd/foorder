@@ -80,19 +80,6 @@ class RestaurantsController < ApplicationController
     @cart = find_cart
   end
   
-  def change_active_state
-    if current_user.role == "admin"
-      @restaurant = Restaurant.find params[:restaurant_id]
-      @item = Item.find params[:id]
-      if @item.active_state
-        @item.update_attribute(:active_state, false)
-      else
-        @item.update_attribute(:active_state, true)
-      end
-      redirect_to @restaurant
-    end
-  end
-
   ###################
 	# Private Methods #
 	###################

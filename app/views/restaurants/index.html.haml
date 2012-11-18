@@ -8,8 +8,6 @@
       %th Name
       %th Address
       %th Min. Charge
-      - if current_user.role == "admin"
-        %th Administrate
   %tbody
     - for restaurant in @restaurants
       %tr
@@ -27,8 +25,3 @@
           = restaurant.address
         %td.span2
           = restaurant.minimum_charge
-        - if current_user.role == "admin"
-          %td
-            .span2.btn-group
-              = link_to "Edit", edit_restaurant_path(restaurant), class: "btn btn-mini"
-              = link_to "Destroy", restaurant, :confirm => 'Are you sure?', :method => :delete, class: "btn btn-mini"

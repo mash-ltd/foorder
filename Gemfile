@@ -13,8 +13,11 @@ gem 'thin' # Thin server
 
 # Authentication
 gem 'devise'
+
 # Authorization based on User.role
 # gem 'cancan'
+
+gem 'activeadmin'
 
 # Restaurant logo upload and manipulation
 gem 'rmagick'
