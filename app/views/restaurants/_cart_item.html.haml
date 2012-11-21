@@ -1,11 +1,9 @@
 - for item in @cart.items
   %tr{class: "#{item == @current_item ? "current_item" : ""}"}
     %td
-      = link_to "+", add_to_cart_restaurant_item_path(restaurant_id: @restaurant.id, id: item.id), :remote => true
-    %td
+      = link_to "+", add_to_cart_restaurant_item_path(restaurant_id: @restaurant.id, id: item.id), remote: true
       = item.quantity
-    %td
-      = link_to "-", subtract_from_cart_restaurant_item_path(restaurant_id: @restaurant.id, id: item.id), :remote => true
+      = link_to "-", subtract_from_cart_restaurant_item_path(restaurant_id: @restaurant.id, id: item.id), remote: true
     %td
       = item.name
     %td

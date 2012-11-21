@@ -14,14 +14,13 @@ class Cart
       current_item = CartItem.new(product)
       @items << current_item
     end
-    current_item
   end
 
   def subtract_product(product)
     current_item = @items.find {|item| item.product == product}
-    if current_item
+    if current_item && current_item.quantity > 0
       current_item.decrement_quantity
-      current_item
+      @items.delete_if  {|x| x.quantity == 0 }
     end
   end
 

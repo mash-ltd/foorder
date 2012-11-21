@@ -11,10 +11,6 @@
         %td
           &nbsp;
         %td
-          &nbsp;
-        %td
-          &nbsp;
-        %td
           .pull-right
             = number_to_currency(@cart.total_price, unit: "EGP", format: "%n %u")
       - unless @cart.items.empty?

@@ -36,5 +36,7 @@
             %td
               = number_to_currency(item.price, unit: "EGP", format: "%n %u")
             %td
-              = link_to "Add to Cart", add_to_cart_restaurant_item_path(restaurant_id: @restaurant.id, id: item.id), :remote => true, :class => "btn btn-mini"
+              .btn-group
+                = link_to "Add to cart", add_to_cart_restaurant_item_path(restaurant_id: @restaurant.id, id: item.id), remote: true, class: "btn btn-mini"
+                = link_to "Subtract from cart", subtract_from_cart_restaurant_item_path(restaurant_id: @restaurant.id, id: item.id), remote: true, class: "btn btn-mini"
 = render 'restaurants/cart'
