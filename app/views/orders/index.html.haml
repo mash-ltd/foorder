@@ -26,35 +26,34 @@
             %td
               = link_to "View", order
   - else
-    %h5
-      There are no open orders right now. In order to open one, go to a restaurant and choose your desired items then press order...
-      %br
-      = link_to "Go to restaurants index", restaurants_path
-%br
-.span12
+    There are no open orders right now. In order to open one, go to a restaurant and choose your desired items then press order...
+    %br
+    = link_to "Go to restaurants index", restaurants_path
+.row
+  %br
+- if @closed_orders.present?
   %h3
     Past orders
-  - unless @closed_orders.empty?
-    .span5
-      %table.table.table-hover
-        %thead
-          %tr
-            %th
-              Restaurant
-            %th
-              Order Initiator
-            %th
-              Links
-        %tbody
-          - @closed_orders.each do |order|
-            %tr
-              %td
-                = order.restaurant.name
-              %td
-                = order.user.first_name
-                = order.user.last_name
-              %td
-                = link_to "View", order
-  - else
-    %h5
-      Currently, no orders have gone through Foorder. Come back later after an order was closed to see orders' history! :)
+  %table.table.table-hover
+    %thead
+      %tr
+        %th
+          Restaurant
+        %th
+          Order Initiator
+        %th
+          Closed at
+        %th
+          Links
+    %tbody
+      - @closed_orders.each do |order|
+        %tr
+          %td
+            = order.restaurant.name
+          %td
+            = order.user.first_name
+            = order.user.last_name
+          %td
+            = order.updated_at.strftime('%e %B %y')
+          %td
+            = link_to "View", order

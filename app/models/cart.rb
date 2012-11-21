@@ -17,6 +17,14 @@ class Cart
     current_item
   end
 
+  def subtract_product(product)
+    current_item = @items.find {|item| item.product == product}
+    if current_item
+      current_item.decrement_quantity
+      current_item
+    end
+  end
+
   def total_price
     @items.sum { |item| item.price }
   end

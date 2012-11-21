@@ -52,9 +52,19 @@ class RestaurantsController < ApplicationController
   
   def add_to_cart
     @restaurant = Restaurant.find params[:restaurant_id]
-    item = Item.find params[:id]
+    @item = Item.find params[:id]
     @cart = find_cart
-    @current_item = @cart.add_product(item)
+    @current_item = @cart.add_product(@item)
+  end
+
+  def subtract_from_cart
+    @restaurant = Restaurant.find params[:restaurant_id]
+    @item = Item.find params[:id]
+    @cart = find_cart
+    @current_item = @cart.subtract_product(@item)
+    respond_to do |format|
+      format.js { render :add_to_cart }
+    end
   end
 
   def add_to_order

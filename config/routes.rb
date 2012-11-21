@@ -14,6 +14,7 @@ FoodOrder::Application.routes.draw do
     resources :items do
       member do
         get 'add_to_cart' => 'restaurants#add_to_cart'
+        get 'subtract_from_cart' => 'restaurants#subtract_from_cart'
         get 'change_active_state' => 'restaurants#change_active_state'
       end
     end
