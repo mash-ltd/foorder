@@ -8,7 +8,7 @@
   %body.body
     .navbar.navbar-inverse.navbar-fixed-top
       .navbar-inner
-        .container-fluid
+        .container
           %ul.nav
             %li.brand
               = link_to "Foorder", root_path, class: 'active'
@@ -29,7 +29,7 @@
                     = link_to "Sign out", destroy_user_session_path, :method => :delete
           - else
             = yield :new_session
-    .container-fluid
+    .container
       - unless notice.nil?
         .alert.alert-success
           = notice
@@ -38,7 +38,7 @@
         .alert.alert-error
           = alert
           %a.close{:href => "#", :data => {:dismiss => "alert"}} &times;
-      .row-fluid
+      .row
         - if current_user
           = yield
         - else
