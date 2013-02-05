@@ -16,7 +16,7 @@ class Restaurant < ActiveRecord::Base
   #Set of validations
   validates_presence_of :name, :address, :phone
   validates_uniqueness_of :name, :phone
-  validates_numericality_of :minimum_charge
+  validates_numericality_of :minimum_charge, if: :minimum_charge
 
   def find_cart
     session[:cart] ||= Cart.new
