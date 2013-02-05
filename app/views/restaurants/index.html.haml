@@ -1,25 +1,29 @@
-%h2 Restaurants
+.span12
+  %h2 Restaurants
 
-%table.table.table-hover
-  %thead
-    %tr
-      %th Name
-      %th Address
-      %th Min. Charge
-  %tbody
-    - for restaurant in @restaurants
+  %table.table.table-hover
+    %thead
       %tr
-        %td.span6
-          .media
-            - if restaurant.logo_url
-              .pull-left
-                .media-object
-                  = image_tag restaurant.logo_url(:thumb).to_s, class: "img-rounded"
-            .media-body
-              %h4.media-heading
-                = link_to restaurant.name, restaurant
-              = restaurant.description
-        %td.span2
-          = restaurant.address
-        %td.span2
-          = restaurant.minimum_charge
+        %th Name
+        %th Address
+        %th Min. Charge
+    %tbody
+      - for restaurant in @restaurants
+        %tr
+          %td.span6
+            .media
+              - if restaurant.logo_url
+                .pull-left
+                  .media-object
+                    = image_tag restaurant.logo_url(:thumb).to_s, class: "img-rounded"
+              .media-body
+                %h4.media-heading
+                  = link_to restaurant.name, restaurant
+                = restaurant.description
+          %td.span4
+            = restaurant.address
+          %td.span2
+            - if restaurant.minimum_charge
+              = restaurant.minimum_charge
+            - else
+              N/A

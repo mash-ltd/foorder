@@ -17,7 +17,7 @@
         - for order in @open_orders
           %tr
             %td
-              = order.restaurant.name
+              = link_to order.restaurant.name, restaurant_path(order.restaurant)
             %td
               = order.user.first_name
               = order.user.last_name
@@ -29,31 +29,31 @@
     There are no open orders right now. In order to open one, go to a restaurant and choose your desired items then press order...
     %br
     = link_to "Go to restaurants index", restaurants_path
-.row
-  %br
-- if @closed_orders.present?
-  %h3
-    Past orders
-  %table.table.table-hover
-    %thead
-      %tr
-        %th
-          Restaurant
-        %th
-          Order Initiator
-        %th
-          Closed at
-        %th
-          Links
-    %tbody
-      - @closed_orders.each do |order|
+  .row
+    %br
+  - if @closed_orders.present?
+    %h3
+      Past orders
+    %table.table.table-hover
+      %thead
         %tr
-          %td
-            = order.restaurant.name
-          %td
-            = order.user.first_name
-            = order.user.last_name
-          %td
-            = order.updated_at.strftime('%e %B %y')
-          %td
-            = link_to "View", order
+          %th
+            Restaurant
+          %th
+            Order Initiator
+          %th
+            Closed at
+          %th
+            Links
+      %tbody
+        - @closed_orders.each do |order|
+          %tr
+            %td
+              = link_to order.restaurant.name, restaurant_path(order.restaurant)
+            %td
+              = order.user.first_name
+              = order.user.last_name
+            %td
+              = order.updated_at.strftime('%e %B %y')
+            %td
+              = link_to "View", order
