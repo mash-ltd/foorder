@@ -1,8 +1,8 @@
 ActiveAdmin.register Item do
-
+  
   config.sort_order = "active_state_desc"
   config.per_page = 10
-
+  
   index download_links: false do
     selectable_column
     column :name
@@ -11,18 +11,18 @@ ActiveAdmin.register Item do
     column :restaurant
     column :active_state
     default_actions
-  end                                 
-
+  end
+  
   filter :name
   filter :restaurant
   filter :active_state, label: "Active?", as: :select
-
-  # form do |f|                         
-  #   f.inputs "Admin Details" do       
-  #     f.input :email                  
-  #     f.input :password               
-  #     f.input :password_confirmation  
-  #   end                               
-  #   f.buttons                         
-  # end                                 
-end                                   
+  
+  # form do |f|
+  #   f.inputs "Admin Details" do
+  #     f.input :email
+  #     f.input :password
+  #     f.input :password_confirmation
+  #   end
+  #   f.buttons
+  # end
+end
